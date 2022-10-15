@@ -1,0 +1,378 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <!--
+  <script src="./resources/jsapi" type="text/javascript"></script>
+  <script type="text/javascript" async>google.load("jquery", "1.3.2");</script>
+ -->
+
+
+<style type="text/css">
+  @font-face {
+   font-family: 'Avenir Next';
+   src: url("./fonts/Metropolis-ExtraLight.otf"); /* File to be stored at your site */
+   }
+
+  body {
+    font-family: "Avenir Next", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight:300;
+    font-size:14px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+  }
+  h1 {
+    font-weight:300;
+  }
+  h2 {
+    font-weight:300;
+  }
+
+  p {
+    font-weight:300;
+    line-height: 1.4;
+  }
+
+
+  .disclaimerbox {
+    background-color: #eee;
+    border: 1px solid #eeeeee;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+    padding: 20px;
+  }
+
+  video.header-vid {
+    height: 140px;
+    border: 1px solid black;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+  }
+
+  img.header-img {
+    height: 140px;
+    border: 1px solid black;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+  }
+
+  img.rounded {
+    border: 0px solid #eeeeee;
+    border-radius: 10px ;
+    -moz-border-radius: 10px ;
+    -webkit-border-radius: 10px ;
+
+  }
+
+  a:link,a:visited
+  {
+    color: #1367a7;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #208799;
+  }
+
+  td.dl-link {
+    height: 160px;
+    text-align: center;
+    font-size: 22px;
+  }
+
+  .layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+    box-shadow:
+            0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+            5px 5px 0 0px #fff, /* The second layer */
+            5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+            10px 10px 0 0px #fff, /* The third layer */
+            10px 10px 1px 1px rgba(0,0,0,0.35), /* The third layer shadow */
+            15px 15px 0 0px #fff, /* The fourth layer */
+            15px 15px 1px 1px rgba(0,0,0,0.35), /* The fourth layer shadow */
+            20px 20px 0 0px #fff, /* The fifth layer */
+            20px 20px 1px 1px rgba(0,0,0,0.35), /* The fifth layer shadow */
+            25px 25px 0 0px #fff, /* The fifth layer */
+            25px 25px 1px 1px rgba(0,0,0,0.35); /* The fifth layer shadow */
+    margin-left: 10px;
+    margin-right: 45px;
+  }
+
+
+  .layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+    box-shadow:
+            0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+            5px 5px 0 0px #fff, /* The second layer */
+            5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+            10px 10px 0 0px #fff, /* The third layer */
+            10px 10px 1px 1px rgba(0,0,0,0.35); /* The third layer shadow */
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 30px;
+    margin-bottom: 5px;
+  }
+
+  .vert-cent {
+    position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+
+  hr
+  {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  }
+</style>
+
+
+
+    <title>SinGRAV: Learning a Generative Radiance Volume from a Single Natural Scene</title>
+ </head>
+
+  <body>
+        <br>
+          <center>
+		  <!--<span style="font-size:32px">Transforming and Projecting Images into<br>Class-conditional Generative Networks</span><br><br><br> -->
+          <span style="font-size:32px">SinGRAV: Learning a Generative Radiance Volume from a Single Natural Scene</span><br><br><br>
+
+          </center>
+          <table align="center" width="800px">
+            <tbody><tr>
+                    <td align="center" width="160px">
+              <center>
+                <!--<span style="font-size:16px"><a href="http://minyounghuh.com">Minyoung Huh</a><sup>12</sup></span>-->
+                <span style="font-size:16px">Yujie Wang</span><sup>1,3</sup></span>
+                </center>
+                </td>
+                    <td align="center" width="160px">
+              <center>
+                <!--<span style="font-size:16px"><a href="https://richzhang.github.io/">Richard Zhang</a><sup>2</sup></span>-->
+                <span style="font-size:16px"><a href="https://xuelin-chen.github.io">Xuelin Chen</span></a><sup>2</sup></span>
+                </center>
+                </td>
+                    <td align="center" width="160px">
+              <center>
+                <!--<span style="font-size:16px"><a href="https://people.csail.mit.edu/junyanz/">Jun-Yan Zhu</a><sup>2</sup></span>-->
+                <span style="font-size:16px"><a href="https://cfcs.pku.edu.cn/baoquan/">Baoquan Chen</span></a><sup>3</sup></span>
+                </center>
+                </td>
+            </tr>
+
+        </tbody></table><br>
+
+          <table align="center" width="800px">
+            <tbody><tr>
+            <td align="center" width="250px">
+              <!-- <center> -->
+                    <span style="font-size:16px"><sup>1</sup>Shandong University</span>
+                <!-- </center> -->
+                </td>
+                    <td align="center" width="250px">
+              <center>
+                    <span style="font-size:16px"><sup>2</sup>Tencent AI Lab</span>
+                </center>
+                </td>
+                    <td align="center" width="250px">
+              <center>
+                    <span style="font-size:16px"><sup>3</sup>Peking University</span>
+                </center>
+                </td>
+        </tr></tbody></table>
+          <table align="center" width="700px">
+            <tbody><tr>
+              <br>
+              <td align="center" width="200px">
+                <center>
+                  <br>
+                  <span style="font-size:20px">Code [Coming soon]
+                  </span>
+                </center>
+              </td>
+
+              <td align="center" width="200px">
+                <center>
+                  <br>
+                  <span style="font-size:20px">
+                    arXiv <a href="https://arxiv.org/pdf/2210.01202.pdf">[Paper]</a>
+                  </span>
+                </center>
+              </td>
+
+            </tr></tbody>
+          </table>
+
+        <br><hr><br>
+        <table align="center" width="800px">
+          <tbody><tr>
+
+
+            <!-- <img class="rounded"  src="./images/model.png" width="800px"> -->
+            <img class="rounded"  src="./images/figure_teaser.png" width="800px">
+            <br><br>
+
+        <p>
+        <left>
+        <span style="font-size:14px">
+        Top two rows: From observations of a single natural scene, we learn a generative model to synthesize highly plausible variations. Three views rendered from each of input/generated scenes are presented. Note how the global and object configurations vary in generated samples, yet still resemble the original. Bottom: Applications enabled by SinGRAV, including removal (left) and duplicate (middle) operation for editing a 3D scene sample, and scene composition (right) that combines 5 different generated samples to form a novel complex scene.
+        </span> 
+        </left>
+        </p>
+
+            </tr>
+          </tbody></table>
+
+        <br>
+      <hr>
+        <br>
+        <center>
+          <h2>
+            Abstract 
+          </h2>
+        </center>
+        <br>
+        
+        <p>
+        <left>
+        <span style="font-size:16px">
+        We present a 3D generative model for general natural scenes. Lacking necessary volumes of 3D data characterizing the target scene, we propose to learn from a single scene. Our key insight is that a natural scene often contains multiple constituents whose geometry, texture, and spatial arrangements follow some clear patterns, but still exhibit rich variations over different regions within the same scene. This suggests localizing the learning of a generative model on substantial local regions. Hence, we exploit a multi-scale convolutional network, which possesses the spatial locality bias in nature, to learn from the statistics of local regions at multiple scales within a single scene. In contrast to existing methods, our learning setup bypasses the need to collect data from many homogeneous 3D scenes for learning common features. We coin our method SinGRAV, for learning a Generative RAdiance Volume from a Single natural scene. We demonstrate the ability of SinGRAV in generating plausible and diverse variations from a single scene, the merits of SinGRAV over state-of-the-art generative neural scene methods, as well as the versatility of SinGRAV by its use in a variety of applications, spanning 3D scene editing, composition, and animation.
+        </span> 
+        </left>
+      </p>
+      <br><br>
+
+      <hr>
+      <br>
+      <center>
+        <h2>
+          Supplementary Video
+        </h2>
+    </center>
+    <br>
+
+    <left>
+    <span style="font-size:16px"> 
+    In the video, we provide the qualitative results for the generated scenes from SinGRAV and SinGRAV-derived variants and demonstrate the results on applications including scene editing, composition and animation. <br><br>
+    </span> 
+    </left>
+    <br>
+
+    <center>
+    <!--<iframe width="560" height="315" src="https://youtu.be/n1jF3Sdlqy8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe> -->
+    <iframe width="800" height="466" src="https://www.youtube.com/embed/n1jF3Sdlqy8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <!--<iframe width="540" height="315" src="https://www.youtube.com/watch?v=n1jF3Sdlqy8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+    </center>
+    <br><br>
+
+
+<!--
+      <hr>
+
+      <br>
+      <center>
+        <h2>
+          Results
+        </h2>
+      </center>
+      <center>
+
+        <h3>
+          Comparison
+        </h3>
+
+        <img class="rounded"  src="./images/comparison.png" width="800px">
+        <br>
+
+        <br>
+        <h3>
+          Results on BigGAN - ImageNet (256x256)
+        </h3>
+
+        <img class="rounded"  src="./images/biggan_imagenet.png" width="800px">
+        <br>
+        <br>
+
+        <h3>
+          Results on StyleGAN2 - LSUN Cars (384x512)
+        </h3>
+
+        <img class="rounded"  src="./images/stylegan2_cars.png" width="800px">
+        <br>
+
+        <br>
+        <h3>
+          Results on StyleGAN2 - FFHQ (1024x1024)
+        </h3>
+
+        <img class="rounded"  src="./images/stylegan2_ffhq.png" width="800px">
+        <br>
+
+      </center>
+      <br><br>
+
+      <hr>
+
+      <center>
+        <h2>
+          Paper
+        </h2>
+      </center>
+      <table align="center" width="800" px="">
+          <tbody><tr>
+          <td align="center" width="100px"></td>
+          <td><a href="http://people.csail.mit.edu/minhuh/papers/pix2latent/arxiv_v2.pdf"><img class="layered-paper-big" style="height:175px" src="./images/first_page.png"></a></td>
+          <td><span style="font-size:10pt">M. Huh, R. Zhang, JY. Zhu, S. Paris, A. Hertzmann,</span><br><br>
+          <b><span style="font-size:10pt">Transforming and Projecting Images to <br> Class-conditional Generative Networks</span></b><br>
+          <br><span style="font-size:10pt">In ECCV 2020 (oral) [<a href="http://people.csail.mit.edu/minhuh/papers/pix2latent/arxiv_v2.pdf">arXiv</a>]</span>
+          </td>
+
+          <br>
+          <table align="center" width="600px">
+            <tbody>
+              <tr>
+                <td>
+                  <center>
+                    <span style="font-size:22px">
+                      <a href="./cite.txt" target="_blank">[Bibtex]</a>
+                    </span>
+                  </center>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+  -->
+      <br><br>
+      <hr>
+      <br>
+
+      <table align="center" width="800px"><tbody>
+        <tr><td width="400px">
+          <left>
+            <center>
+              <h2>
+                Acknowledgements
+              </h2>
+            </center>
+            <p> We would like to thank <a href="https://yixin26.github.io"> Dr. Zhuang </a> for helpful discussions. 
+            <br> <br>
+            <span style="font-size:16px"><p><a href="https://minyoungg.github.io/pix2latent/">Website template from Pix2latent</a>. </p></span></p>
+        </left>
+      </td></tr>
+    </tbody></table>
+    <br><br><br><br><br><br>
+
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-70157890-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-70157890-3');
+  </script>
+
+
+</body></html>
